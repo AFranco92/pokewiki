@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <img class="logoPokemon" src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" alt="Logo de pokémon">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="getAll()">All Pokémon</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Types</a>
+            <ul class="dropdown-menu" >
+              <li *ngFor="let type of types">
+                <button class="dropdown-item" (click)="setTypeToPokemonSearch(type.name)">{{type.name | titlecase }}</button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Name of the Pokémon" aria-label="Search" [(ngModel)]="pokemon" [ngModelOptions]="{standalone: true}">
+          <button class="btn btn-outline-light" type="button" (click)="setPokemonToSearch()">Search</button>
+        </form>
+      </div>
+    </div>
+</nav>

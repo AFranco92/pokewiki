@@ -1,0 +1,14 @@
+.navbar-nav .nav-link {
+    color: white;
+}
+.navbar {
+    font-family: 'Pokemon Solid', sans-serif;
+    letter-spacing: 2px;
+    background-color: rgb(199, 7, 7);
+}
+.navbar .container-fluid .logoPokemon {
+    max-width: 10%;
+}
+a.nav-link {
+    cursor: pointer;
+}

@@ -1,0 +1,19 @@
+table {
+  width: 100%;
+}
+span.pokemon-name {
+  letter-spacing: 2px;
+  font-family: 'Pokemon Solid', sans-serif;
+  color: rgb(187, 159, 0);
+}
+img.pokeImage {
+  min-width: 15%;
+}
+.paginator {
+  display: flex;
+  justify-content: right;
+}
+li {
+  margin: 2% 2% 0% 0%;
+  list-style-type: none;
+}
