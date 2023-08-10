@@ -3,7 +3,7 @@
   <li><button class="btn btn-danger" (click)="getNextOrPrev(false)">Next</button></li>
 </ul>
 <div class="row d-flex mt-2">
-  <div class="col-3" *ngFor="let pokemon of pokemonsFullInfo">
+  <div class="col-md-4 col-sm-3 col-xs-2" *ngFor="let pokemon of pokemonsFullInfo">
     <div class="card m-2 pokemonCard">
       <div class="card-img">
         <img class="pokeImage" src="{{ pokemon.sprites.front_default }}" alt="">
