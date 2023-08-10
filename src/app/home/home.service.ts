@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { PokemonResult } from '../models/PokemonResult';
+import { Pokemon } from '../models/Pokemon';
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +13,16 @@ export class HomeService {
 
   constructor(private http: HttpClient) { }
 
-  public get() {
-    return this.http.get('https://pokeapi.co/api/v2/pokemon');
+  public get(): Observable<PokemonResult> {
+    return this.http.get<PokemonResult>('https://pokeapi.co/api/v2/pokemon');
   }
 
-  public getOne(idOrName: any): Observable<any> {
-    return this.http.get('https://pokeapi.co/api/v2/pokemon/'+idOrName);
+  public getOne(idOrName: any): Observable<Pokemon> {
+    return this.http.get<Pokemon>('https://pokeapi.co/api/v2/pokemon/'+idOrName);
   }
 
-  public getNextOrPrev(offset: string) {    
-    return this.http.get("https://pokeapi.co/api/v2/pokemon?offset="+offset+"&limit="+this.limit+"");
+  public getNextOrPrev(offset: string): Observable<PokemonResult> {    
+    return this.http.get<PokemonResult>("https://pokeapi.co/api/v2/pokemon?offset="+offset+"&limit="+this.limit+"");
   }
 
 }

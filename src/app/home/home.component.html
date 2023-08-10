@@ -1,19 +1,16 @@
-<div class="mat-elevation-z8 poke-table">
-  <ul class="paginator">
-    <li><button class="btn btn-danger" (click)="getNextOrPrev(true)">Previous</button></li>
-    <li><button class="btn btn-danger" (click)="getNextOrPrev(false)">Next</button></li>
-  </ul>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" #tabla1>
-    <ng-container matColumnDef="name">
-      <th class="thead-p" mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let pokemon"><span class="pokemon-name">{{pokemon.name | titlecase}}</span></td>
-    </ng-container>
-    <ng-container matColumnDef="image">
-      <th mat-header-cell *matHeaderCellDef>Image</th>
-      <td mat-cell *matCellDef="let pokemon"><img class="pokeImage" src="{{pokemon.sprites.front_default}}" alt=""></td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="cols"></tr>
-    <tr mat-row *matRowDef="let row; columns: cols;"></tr>
-  </table>
-  <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+<ul class="paginator">
+  <li><button class="btn btn-danger" (click)="getNextOrPrev(true)">Previous</button></li>
+  <li><button class="btn btn-danger" (click)="getNextOrPrev(false)">Next</button></li>
+</ul>
+<div class="row d-flex mt-2">
+  <div class="col-3" *ngFor="let pokemon of pokemonsFullInfo">
+    <div class="card m-2 pokemonCard">
+      <div class="card-img">
+        <img class="pokeImage" src="{{ pokemon.sprites.front_default }}" alt="">
+      </div>
+      <div class="card-footer">
+        <span class="pokemon-name">{{ pokemon.name | titlecase }}</span>
+      </div>
+    </div>
+  </div>
 </div>

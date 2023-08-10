@@ -7,7 +7,7 @@ span.pokemon-name {
   color: rgb(187, 159, 0);
 }
 img.pokeImage {
-  min-width: 15%;
+  min-width: 10%;
 }
 .paginator {
   display: flex;
@@ -16,4 +16,9 @@ img.pokeImage {
 li {
   margin: 2% 2% 0% 0%;
   list-style-type: none;
+}
+.pokemonCard:hover {
+  border: 1px solid black;
+  cursor: pointer;
+  transition: 1000ms;
 }

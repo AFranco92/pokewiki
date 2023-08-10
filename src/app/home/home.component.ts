@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Pokemon } from '../models/Pokemon';
+import { PokemonResult } from '../models/PokemonResult';
 import { NavBarService } from '../nav-bar/nav-bar.service';
 import { TypeService } from '../shared/services/type.service';
 import { HomeService } from './home.service';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { Pokemon } from '../models/Pokemon';
+import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -13,11 +13,8 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class HomeComponent implements OnInit {
 
-  public pokemons: Pokemon[] = [];
+  public pokemons?: PokemonResult;
   public pokemonsFullInfo: Pokemon[] = [];
-  cols: string[] = ['name', 'image'];
-  dataSource: any;
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   offset: number = 0;
 
   constructor(private homeService: HomeService, 
@@ -32,29 +29,28 @@ export class HomeComponent implements OnInit {
       if(value === null || value === "") {
         this.getAll();
       } else {
-        this.homeService.getOne(value).subscribe((pokemon:  any) => {
+        this.homeService.getOne(value.toLowerCase()).subscribe((pokemon: Pokemon) => {
           this.pokemonsFullInfo = [];
           this.pokemonsFullInfo.push(pokemon);
-          this.refreshTable();
         });
       }
     });
 
+/*
     this.navBarService.typeToPokemonSearchChange.subscribe(value => {
       this.typeService.getPokemons(value.toLowerCase()).subscribe((data: any) => {
         this.pokemonsFullInfo = [];
         this.pokemonsFullInfo = data.pokemon;
         this.pokemonsFullInfo.forEach(pokemon => {
           this.pokemonsFullInfo = [];
-          this.homeService.getOne(pokemon.pokemon.name).subscribe((pokemon: Pokemon) => {
+          this.homeService.getOne(pokemon.name).subscribe((pokemon: Pokemon) => {
             this.pokemonsFullInfo.push(pokemon);
             this.pokemonsFullInfo.sort((a, b) => a.id - b.id);
-            this.refreshTable();
           });
         });
       });
     });
-
+*/
     this.navBarService.loadAllChange.subscribe(value => {
       if(value) {
         this.getAll();
@@ -63,25 +59,20 @@ export class HomeComponent implements OnInit {
 
   }
 
-  getAll() {
+  getAll(): void {
     this.pokemonsFullInfo = [];
-    this.offset = 0;
-    this.homeService.get().subscribe((data: any) => {
-      this.pokemons = data.results;
-      this.pokemons.forEach(pokemon => {
-        let id = pokemon.url.substring(34, 36).replace("/", "");
-        this.homeService.getOne(id).subscribe((pokemon: any) => {
-          this.pokemonsFullInfo.push(pokemon);
-          this.pokemonsFullInfo.sort((a, b) => a.id - b.id);
-          this.refreshTable();
-        });
-      });
-    });
-  }
-
-  refreshTable() {
-    this.dataSource = new MatTableDataSource<Pokemon>(this.pokemonsFullInfo);
-    this.dataSource.paginator = this.paginator;
+    this.homeService.get()
+      .pipe(
+        tap( pokemonResult => pokemonResult.results.forEach( pokemon => {
+          this.homeService.getOne(pokemon.name)
+            .pipe(
+              tap( pokemon => this.pokemonsFullInfo.push(pokemon) ),
+              tap( () => this.pokemonsFullInfo.sort((a, b) => a.id - b.id) )
+            )
+          .subscribe();
+        }))
+      )
+      .subscribe();
   }
 
   getNextOrPrev(prev: boolean) {
@@ -91,17 +82,19 @@ export class HomeComponent implements OnInit {
     } else if(!prev) {
       this.offset += 20;
     }
-    this.homeService.getNextOrPrev(this.offset.toString()).subscribe((data: any) => {
-      this.pokemons = data.results;
-      this.pokemons.forEach(pokemon => {
-        let id = pokemon.url.substring(34, 36).replace("/", "");
-        this.homeService.getOne(id).subscribe((pokemon: any) => {
-          this.pokemonsFullInfo.push(pokemon);
-          this.pokemonsFullInfo.sort((a, b) => a.id - b.id);
-          this.refreshTable();
-        });
-      });
-    });
+    this.homeService.getNextOrPrev(this.offset.toString())
+      .pipe(
+        tap( pokemonResult => pokemonResult.results.forEach( pokemon => {
+          this.homeService.getOne(pokemon.name)
+            .pipe(
+              tap( pokemon => this.pokemonsFullInfo.push(pokemon) ),
+              tap( () => this.pokemonsFullInfo.sort((a, b) => a.id - b.id) )
+            )
+            .subscribe();           
+          })
+        )
+      )
+      .subscribe();
   }
 
   get pokemonToSearch(): String {
