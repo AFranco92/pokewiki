@@ -21,9 +21,9 @@
             </ul>
           </li>
         </ul>
-        <form class="d-flex" role="search">
+        <form class="d-flex" role="search" (ngSubmit)="setPokemonToSearch()">
           <input class="form-control me-2" type="search" placeholder="Name of the Pokémon" aria-label="Search" [(ngModel)]="pokemon" [ngModelOptions]="{standalone: true}">
-          <button class="btn btn-outline-light" type="button" (click)="setPokemonToSearch()">Search</button>
+          <button class="btn btn-outline-light" type="submit" (click)="setPokemonToSearch()">Search</button>
         </form>
       </div>
     </div>

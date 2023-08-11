@@ -1,4 +1,4 @@
-<div class="card mt-2">
+<div class="card mt-5">
   <div class="card-header">
     <div class="row">
       <div class="col-1">
@@ -12,17 +12,23 @@
       </div>
     </div>
   </div>
-  <div class="card-body">
+  <div 
+    class="card-body">
     <div class="row">
       <div class="col-3">
         <img 
           (mouseover)="changeImage(1)" 
           (mouseleave)="changeImage(0)" 
           class="poke-image" 
-          [src]="pokeImage" alt="pokemon?.name">
+          [src]="pokeImage">
+          <small 
+            *ngIf="pokeImage && pokeImage.includes('shiny')"
+            style="margin-left: -3vw;">
+            Shiny
+          </small>
       </div>
       <div class="col-9">
-        <p>{{ flavorText }}</p>
+        <p *ngIf="flavorText">{{ flavorText }}</p>
       </div>
     </div>
   </div>
@@ -51,7 +57,9 @@
       <div class="col-12">
         <h5>Moves</h5>
         <ul class="list-group list-of-moves">
-          <mat-grid-list cols="4" rowHeight="100:8">
+          <mat-grid-list 
+            [cols]="breakPoint" rowHeight="2:0.5"
+            (window:resize)="onResize($event)">
             <mat-grid-tile 
               *ngFor="let move of pokemon?.moves">
               {{ move.move.name | titlecase }}

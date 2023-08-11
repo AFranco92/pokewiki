@@ -38,21 +38,43 @@ export class HomeComponent implements OnInit {
       }
     });
 
-/*
-    this.navBarService.typeToPokemonSearchChange.subscribe(value => {
-      this.typeService.getPokemons(value.toLowerCase()).subscribe((data: any) => {
-        this.pokemonsFullInfo = [];
-        this.pokemonsFullInfo = data.pokemon;
-        this.pokemonsFullInfo.forEach(pokemon => {
+    
+    this.navBarService.typeToPokemonSearchChange
+      .pipe(
+        tap( type => {
           this.pokemonsFullInfo = [];
-          this.homeService.getOne(pokemon.name).subscribe((pokemon: Pokemon) => {
-            this.pokemonsFullInfo.push(pokemon);
-            this.pokemonsFullInfo.sort((a, b) => a.id - b.id);
+          this.typeService.getPokemons(type)
+          .pipe(
+            tap( typeInfo => typeInfo.pokemon.forEach( pokemon => {
+              this.homeService.getOne(pokemon.pokemon.name)
+                .subscribe(( pokemon: Pokemon ) => {
+                  this.pokemonsFullInfo.push(pokemon);
+                });
+            })),
+            tap( () => this.pokemonsFullInfo.sort((a, b) => a.id - b.id) )
+          )
+          .subscribe();
+        })
+      )
+    .subscribe();
+    
+
+
+/*     this.navBarService.typeToPokemonSearchChange.subscribe(value => {      
+      this.typeService.getPokemons(value.toLowerCase())
+        .subscribe((data: any) => {
+          this.pokemonsFullInfo = [];
+          this.pokemonsFullInfo = data.pokemon;
+          this.pokemonsFullInfo.forEach(pokemon => {
+            this.pokemonsFullInfo = [];
+            this.homeService.getOne(pokemon.name).subscribe((pokemon: Pokemon) => {
+              this.pokemonsFullInfo.push(pokemon);
+              this.pokemonsFullInfo.sort((a, b) => a.id - b.id);
+            });
           });
         });
-      });
-    });
-*/
+    }); */
+
     this.navBarService.loadAllChange.subscribe(value => {
       if(value) {
         this.getAll();
@@ -102,5 +124,7 @@ export class HomeComponent implements OnInit {
   get pokemonToSearch(): String {
     return this.navBarService.pokemonToSearch;
   }
+
+
 
 }

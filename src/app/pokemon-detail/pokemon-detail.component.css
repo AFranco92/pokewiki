@@ -4,7 +4,7 @@ h3.pokemon-name {
   color: rgb(187, 159, 0);
 }
 .poke-image {
-  min-width: 200px;
+  min-width: 100%;
 }
 .poke-image:hover {
   cursor: none;

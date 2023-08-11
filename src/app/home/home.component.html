@@ -6,12 +6,18 @@
   <div class="col-md-4 col-sm-3 col-xs-2" *ngFor="let pokemon of pokemonsFullInfo">
     <a [routerLink]="['pokemon-detail/', pokemon.id]">
       <div class="card m-2 pokemonCard">
-        <div class="card-img">
+        <div class="card-body" 
+          [ngClass]="{ 'grass': pokemon.types[0].type.name.match('grass'),
+                       'fire':  pokemon.types[0].type.name.match('fire'),
+                       'water': pokemon.types[0].type.name.match('water'),
+                       'bug':   pokemon.types[0].type.name.match('bug')}">
+          <div class="card-img">
             <img 
             class="pokeImage" 
             src="{{ pokemon.sprites.front_default }}" 
-            alt="pokemon.name"
+            [alt]="pokemon.name"
             >
+          </div>
         </div>
         <div class="card-footer">
           <span class="pokemon-name">{{ pokemon.name | titlecase }}</span>

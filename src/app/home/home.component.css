@@ -7,7 +7,7 @@ span.pokemon-name {
   color: rgb(187, 159, 0);
 }
 img.pokeImage {
-  min-width: 10%;
+  min-width: 32%;
 }
 .paginator {
   display: flex;
@@ -20,8 +20,26 @@ li {
 .pokemonCard:hover {
   border: 1px solid black;
   cursor: pointer;
-  transition: 1000ms;
 }
 a {
   text-decoration: none;
+}
+.grass {
+  background: rgb(17,73,8);
+  background: linear-gradient(0deg, rgba(17,73,8,0.5) 0%, rgba(9,121,11,0.5) 35%, rgba(88,255,91,0.5) 100%);
+}
+
+.fire {
+  background: rgb(255, 98, 0);
+  background: linear-gradient(0deg, rgba(255, 77, 0, 0.5) 0%, rgba(255,244,0,0.5) 35%, rgba(255,203,88,0.5) 100%);
+}
+
+.water {
+  background: rgb(77,129,255);
+  background: linear-gradient(0deg, rgba(77,129,255,0.5) 0%, rgba(36,242,237,0.5) 35%, rgba(205,254,255,0.5) 100%);
+}
+
+.bug {
+  background: rgb(94,111,0);
+  background: linear-gradient(0deg, rgba(94,111,0,1) 0%, rgba(165,190,68,1) 35%, rgba(235,255,125,1) 100%);
 }
