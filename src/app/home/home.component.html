@@ -4,13 +4,19 @@
 </ul>
 <div class="row d-flex mt-2">
   <div class="col-md-4 col-sm-3 col-xs-2" *ngFor="let pokemon of pokemonsFullInfo">
-    <div class="card m-2 pokemonCard">
-      <div class="card-img">
-        <img class="pokeImage" src="{{ pokemon.sprites.front_default }}" alt="">
+    <a [routerLink]="['pokemon-detail/', pokemon.id]">
+      <div class="card m-2 pokemonCard">
+        <div class="card-img">
+            <img 
+            class="pokeImage" 
+            src="{{ pokemon.sprites.front_default }}" 
+            alt="pokemon.name"
+            >
+        </div>
+        <div class="card-footer">
+          <span class="pokemon-name">{{ pokemon.name | titlecase }}</span>
+        </div>
       </div>
-      <div class="card-footer">
-        <span class="pokemon-name">{{ pokemon.name | titlecase }}</span>
-      </div>
-    </div>
+    </a>
   </div>
 </div>

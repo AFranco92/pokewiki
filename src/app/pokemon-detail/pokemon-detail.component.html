@@ -1,0 +1,64 @@
+<div class="card mt-2">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-1">
+        <button 
+          class="btn btn-danger">
+          Back
+        </button>
+      </div>
+      <div class="col-10">
+        <h3 class="pokemon-name text-center">{{ pokemon?.name | titlecase }}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-3">
+        <img 
+          (mouseover)="changeImage(1)" 
+          (mouseleave)="changeImage(0)" 
+          class="poke-image" 
+          [src]="pokeImage" alt="pokemon?.name">
+      </div>
+      <div class="col-9">
+        <p>{{ flavorText }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="row mt-3">
+      <div class="col-6">
+        <h5>Abilities</h5>
+        <ul class="list-group">
+          <li class="list-group-item" 
+              *ngFor="let ability of pokemon?.abilities">
+            {{ ability.ability.name | titlecase }}
+          </li>
+        </ul>
+      </div>
+      <div class="col-6">
+        <h5>Types</h5>
+        <ul class="list-group">
+          <li class="list-group-item"
+              *ngFor="let type of pokemon?.types">
+              {{ type.type.name | titlecase }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <h5>Moves</h5>
+        <ul class="list-group list-of-moves">
+          <mat-grid-list cols="4" rowHeight="100:8">
+            <mat-grid-tile 
+              *ngFor="let move of pokemon?.moves">
+              {{ move.move.name | titlecase }}
+            </mat-grid-tile>
+          </mat-grid-list>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -22,3 +22,6 @@ li {
   cursor: pointer;
   transition: 1000ms;
 }
+a {
+  text-decoration: none;
+}

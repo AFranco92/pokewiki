@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PokemonResult } from '../models/PokemonResult';
-import { NavBarService } from '../nav-bar/nav-bar.service';
+import { PokemonResult } from '../interfaces/PokemonResult';
+import { NavBarService } from '../nav-bar/services/nav-bar.service';
 import { TypeService } from '../shared/services/type.service';
-import { HomeService } from './home.service';
-import { Pokemon } from '../models/Pokemon';
+import { HomeService } from './services/home.service';
+import { Pokemon } from '../interfaces/Pokemon';
 import { map, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private homeService: HomeService, 
               private navBarService: NavBarService,
-              private typeService: TypeService) { }
+              private typeService: TypeService,
+              private router: Router) { }
 
   ngOnInit(): void {
 

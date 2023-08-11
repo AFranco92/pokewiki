@@ -1,0 +1,15 @@
+h3.pokemon-name {
+  letter-spacing: 2px;
+  font-family: 'Pokemon Solid', sans-serif;
+  color: rgb(187, 159, 0);
+}
+.poke-image {
+  min-width: 200px;
+}
+.poke-image:hover {
+  cursor: none;
+}
+.list-of-moves {
+  max-height: 20vh;
+  overflow: scroll;
+}

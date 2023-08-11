@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PokemonType } from '../models/PokemonType';
-import { NavBarService } from './nav-bar.service';
+import { PokemonType } from '../interfaces/PokemonType';
+import { NavBarService } from './services/nav-bar.service';
 
 @Component({
   selector: 'app-nav-bar',

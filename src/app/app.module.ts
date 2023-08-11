@@ -9,12 +9,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
+import { PokemonDetailComponent } from './pokemon-detail/pokemon-detail.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    HomeComponent
+    HomeComponent,
+    PokemonDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +26,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
